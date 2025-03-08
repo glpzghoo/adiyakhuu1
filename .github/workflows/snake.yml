@@ -3,7 +3,7 @@ name: Generate Snake Animation
 on:
   schedule: 
     - cron: "0 */12 * * *" 
-  workflow_dispatch:
+  workflow_dispatch: 
   push:
     branches:
       - main
@@ -23,11 +23,22 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: dist/snake.svg
-          palette: github-dark 
 
-      - name: Add Background to Snake SVG
+      - name: Ensure dist Directory Exists
+        run: mkdir -p dist
+
+      - name: Customize Snake SVG
         run: |
-          sed -i 's|<svg width="\(.*\)" height="\(.*\)"|<svg width="\1" height="\2" style="background-color: #1a1a1a;|' dist/snake.svg
+          # Check if snake.svg exists
+          if [ ! -f dist/snake.svg ]; then
+            echo "Error: dist/snake.svg not found!"
+            exit 1
+          fi
+          # Modify SVG by creating a temp file and overwriting
+          sed 's|<svg width="\(.*\)" height="\(.*\)"|<svg width="\1" height="\2" style="background-color: #1a1a1a;|' dist/snake.svg > dist/snake_temp.svg
+          mv dist/snake_temp.svg dist/snake.svg
+          # Optional: Customize snake color (adjust fill value after checking SVG)
+          sed -i 's/fill="#00ff00"/fill="#ff5555"/g' dist/snake.svg
 
       - name: Push snake.svg to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
