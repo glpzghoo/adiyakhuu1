@@ -12,14 +12,3 @@
 
 ###
 
-<img src="https://raw.githubusercontent.com/adiyakhuu1/adiyakhuu1/output/snake.svg" alt="Snake animation" />
-
-###
-
-<div align="center">
-  <a href="https://open.spotify.com/user/31cfrjyyiqmqigiyqkkpwqtbpcz4">
-    <img src="https://spotify-recently-played-readme.vercel.app/api?user=31cfrjyyiqmqigiyqkkpwqtbpcz4&count=5&unique=false" alt="Spotify recently played"  />
-  </a>
-</div>
-
-###
