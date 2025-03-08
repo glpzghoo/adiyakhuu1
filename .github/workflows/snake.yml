@@ -3,9 +3,7 @@ name: Generate Snake Animation
 on:
   schedule: 
     - cron: "0 */12 * * *" # Runs every 12 hours
-
   workflow_dispatch: # Allows manual trigger
-
   push:
     branches:
       - main
@@ -26,6 +24,11 @@ jobs:
           github_user_name: ${{ github.repository_owner }}
           outputs: dist/snake.svg
           palette: github-dark
+
+      - name: Add Background to Snake SVG
+        run: |
+          sed -i 's|<svg width="\(.*\)" height="\(.*\)"|<svg width="\1" height="\2" style="background-color: #1a1a1a;|' dist/snake.svg
+
       - name: Push snake.svg to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
